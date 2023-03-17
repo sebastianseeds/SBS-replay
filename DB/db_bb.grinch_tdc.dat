@@ -251,3 +251,12 @@ bb.grinch_tdc.tdc.GoodTimeCut = 200.0
 bb.grinch_tdc.hit_mintime = 100.0
 bb.grinch_tdc.hit_maxtime = 300.0
 
+#trackmatch_xslope = 0.707
+#trackmatch_xcut = 0.2
+trackmatch_xslope = 0.71
+trackmatch_x0 = 0.0
+trackmatch_xsigma = 0.014
+trackmatch_yslope = 1.8
+trackmatch_y0 = -0.06
+trackmatch_ysigma = 0.04
+trackmatch_nsigma_cut = 5.0

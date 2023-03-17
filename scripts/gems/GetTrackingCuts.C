@@ -29,7 +29,10 @@ void GetTrackingCuts( const char *rootfilename, const char *outfilename="GMNtrac
   
   //ROOT::RDataFrame F(*C);
 
-  TCut global_cut =  "bb.tr.n==1&&abs(bb.tr.vz[0])<0.5&&bb.gem.track.chi2ndf[0]<10&&bb.gem.track.nhits[0]>3&&bb.ps.e>0.2&&abs(bb.etot_over_p-1.)<0.25";
+  //TCut global_cut =  "bb.tr.n==1&&abs(bb.tr.vz[0])<0.5&&bb.gem.track.chi2ndf[0]<10&&bb.gem.track.nhits[0]>3&&bb.ps.e>0.2&&abs(bb.etot_over_p-1.)<0.25";
+  //TCut global_cut =  "bb.tr.n==1&&abs(bb.tr.vz[0])<0.5&&bb.gem.track.chi2ndf[0]<10&&bb.gem.track.nhits[0]>3&&bb.ps.e>0.2&&abs(bb.etot_over_p-1.)<0.25&&abs(sbs.tr.vz[0])<0.5&&sbs.gem.track.chi2ndf[0]<10&&sbs.tr.n==1&&sbs.gem.track.nhits[0]>4";
+  TCut global_cut =  "abs(sbs.tr.vz[0])<0.5&&sbs.gem.track.chi2ndf[0]<10&&sbs.tr.n==1&&sbs.gem.track.nhits[0]>4";
+  //TCut global_cut =  "";
   
   //TCut global_cut = "bb.tr.n==1&&abs(bb.tr.vz)<0.08&&bb.gem.track.chi2ndf<10&&bb.gem.track.nhits>3&&bb.ps.e>0.25&&abs(bb.etot_over_p-1.)<0.25";
 
@@ -43,10 +46,10 @@ void GetTrackingCuts( const char *rootfilename, const char *outfilename="GMNtrac
   
   TFile *fout = new TFile( outfilename, "RECREATE" );
   
-  TH1D *hdxfcp = new TH1D("hdxfcp", ";x_{track}-x_{fcp} (m);", 300, -0.15, 0.15 );
-  TH1D *hdyfcp = new TH1D("hdyfcp", ";y_{track}-y_{fcp} (m);", 300, -0.15, 0.15 );
-  TH1D *hdxbcp = new TH1D("hdxbcp", ";x_{track}+x'_{track}z_{bcp}-x_{bcp} (m);", 300, -0.15, 0.15 );
-  TH1D *hdybcp = new TH1D("hdybcp", ";y_{track}+y'_{track}z_{bcp}-y_{bcp} (m);", 300, -0.15, 0.15 );
+  TH1D *hdxfcp = new TH1D("hdxfcp", ";x_{track}-x_{fcp} (m);", 300, -0.75, 0.75 );
+  TH1D *hdyfcp = new TH1D("hdyfcp", ";y_{track}-y_{fcp} (m);", 300, -0.30, 0.30 );
+  TH1D *hdxbcp = new TH1D("hdxbcp", ";x_{track}+x'_{track}z_{bcp}-x_{bcp} (m);", 300, -0.30, 0.50 );
+  TH1D *hdybcp = new TH1D("hdybcp", ";y_{track}+y'_{track}z_{bcp}-y_{bcp} (m);", 300, -0.30, 0.30 );
 
   TH2D *hdxdyfcp = new TH2D("hdxdyfcp", ";y_{track}-y_{fcp} (m);x_{track}-x_{fcp} (m)", 150, -0.15, 0.15, 150, -0.15, 0.15 );
   TH2D *hdxdybcp = new TH2D("hdxdybcp", ";y_{track}+y'_{track}z_{bcp}-y_{bcp} (m);x_{track}+x'_{track}z_{bcp}-x_{bcp} (m)", 150, -0.15, 0.15, 150, -0.15, 0.15 );
@@ -54,32 +57,32 @@ void GetTrackingCuts( const char *rootfilename, const char *outfilename="GMNtrac
   TH1D *hdthcp = new TH1D("hdthcp", "; x'_{track}-x'_{constraint};", 300, -0.1, 0.1 );
   TH1D *hdphcp = new TH1D("hdphcp", "; y'_{track}-y'_{constraint};", 300, -0.1, 0.1 );
   
-  T->Project( "hdxbcp", "bb.tr.x+bb.tr.th*bb.z_bcp-bb.x_bcp" );
-  T->Project( "hdybcp", "bb.tr.y+bb.tr.ph*bb.z_bcp-bb.y_bcp" );
-  T->Project( "hdxdybcp", "bb.tr.x+bb.tr.th*bb.z_bcp-bb.x_bcp:bb.tr.y+bb.tr.ph*bb.z_bcp-bb.y_bcp" );
-  T->Project( "hdxfcp", "bb.tr.x+bb.tr.th*bb.z_fcp-bb.x_fcp" );
-  T->Project( "hdyfcp", "bb.tr.y+bb.tr.ph*bb.z_fcp-bb.y_fcp" );
-  T->Project( "hdxdyfcp", "bb.tr.x+bb.tr.th*bb.z_fcp-bb.x_fcp:bb.tr.y+bb.tr.ph*bb.z_fcp-bb.y_fcp" );
-  T->Project( "hdthcp", "bb.tr.th-(bb.x_bcp-bb.x_fcp)/(bb.z_bcp-bb.z_fcp)" );
-  T->Project( "hdphcp", "bb.tr.ph-(bb.y_bcp-bb.y_fcp)/(bb.z_bcp-bb.z_fcp)" );
+  T->Project( "hdxbcp", "sbs.tr.x+sbs.tr.th*sbs.z_bcp-sbs.x_bcp" );
+  T->Project( "hdybcp", "sbs.tr.y+sbs.tr.ph*sbs.z_bcp-sbs.y_bcp" );
+  T->Project( "hdxdybcp", "sbs.tr.x+sbs.tr.th*sbs.z_bcp-sbs.x_bcp:sbs.tr.y+sbs.tr.ph*sbs.z_bcp-sbs.y_bcp" );
+  T->Project( "hdxfcp", "sbs.tr.x+sbs.tr.th*sbs.z_fcp-sbs.x_fcp" );
+  T->Project( "hdyfcp", "sbs.tr.y+sbs.tr.ph*sbs.z_fcp-sbs.y_fcp" );
+  T->Project( "hdxdyfcp", "sbs.tr.x+sbs.tr.th*sbs.z_fcp-sbs.x_fcp:sbs.tr.y+sbs.tr.ph*sbs.z_fcp-sbs.y_fcp" );
+  T->Project( "hdthcp", "sbs.tr.th-(sbs.x_bcp-sbs.x_fcp)/(sbs.z_bcp-sbs.z_fcp)" );
+  T->Project( "hdphcp", "sbs.tr.ph-(sbs.y_bcp-sbs.y_fcp)/(sbs.z_bcp-sbs.z_fcp)" );
 
   TString fname_db = outfilename;
   fname_db.ReplaceAll(".root",".dat");
 
   ofstream dbfile(fname_db.Data());
 
-  dbfile << "bb.frontconstraint_x0 = " << hdxfcp->GetMean() << endl;
-  dbfile << "bb.frontconstraint_y0 = " << hdyfcp->GetMean() << endl;
-  dbfile << "bb.backconstraint_x0 = " << hdxbcp->GetMean() << endl;
-  dbfile << "bb.backconstraint_y0 = " << hdybcp->GetMean() << endl << endl;
+  dbfile << "sbs.frontconstraint_x0 = " << hdxfcp->GetMean() << endl;
+  dbfile << "sbs.frontconstraint_y0 = " << hdyfcp->GetMean() << endl;
+  dbfile << "sbs.backconstraint_x0 = " << hdxbcp->GetMean() << endl;
+  dbfile << "sbs.backconstraint_y0 = " << hdybcp->GetMean() << endl << endl;
 
-  dbfile << "bb.frontconstraintwidth_x = " << hdxfcp->GetRMS() * 4.5 << endl;
-  dbfile << "bb.frontconstraintwidth_y = " << hdyfcp->GetRMS() * 4.5 << endl;
-  dbfile << "bb.backconstraintwidth_x = " << hdxbcp->GetRMS() * 4.5 << endl;
-  dbfile << "bb.backconstraintwidth_y = " << hdybcp->GetRMS() * 4.5 << endl << endl;
+  dbfile << "sbs.frontconstraintwidth_x = " << hdxfcp->GetRMS() * 4.5 << endl;
+  dbfile << "sbs.frontconstraintwidth_y = " << hdyfcp->GetRMS() * 4.5 << endl;
+  dbfile << "sbs.backconstraintwidth_x = " << hdxbcp->GetRMS() * 4.5 << endl;
+  dbfile << "sbs.backconstraintwidth_y = " << hdybcp->GetRMS() * 4.5 << endl << endl;
 
-  dbfile << "bb.gem.constraintwidth_theta = " << hdthcp->GetRMS() * 4.5 << endl;
-  dbfile << "bb.gem.constraintwidth_phi = " << hdphcp->GetRMS() * 4.5 << endl;
+  dbfile << "sbs.gem.constraintwidth_theta = " << hdthcp->GetRMS() * 4.5 << endl;
+  dbfile << "sbs.gem.constraintwidth_phi = " << hdphcp->GetRMS() * 4.5 << endl;
 
   
 

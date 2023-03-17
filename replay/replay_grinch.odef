@@ -17,3 +17,9 @@ variable bb.grinch_tdc.hit.xhit
 variable bb.grinch_tdc.hit.yhit
 variable bb.grinch_tdc.hit.time
 variable bb.grinch_tdc.hit.amp
+variable bb.grinch_tdc.hit.clustindex
+variable bb.grinch_tdc.hit.trackindex
+
+variable bb.grinch_tdc.nclus 
+variable bb.grinch_tdc.bestcluster
+block bb.grinch_tdc.clus.*

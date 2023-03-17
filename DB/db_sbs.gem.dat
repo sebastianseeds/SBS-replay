@@ -1608,6 +1608,10 @@ sbs.gem.cmfile = gemped/db_cmr_sbs_gem_run1653.dat
 sbs.gem.pedfile = gemped/daq_ped_sbs_gem_run1899.dat
 sbs.gem.cmfile = gemped/db_cmr_sbs_gem_run1899.dat
 
+-------[ 2023-02-14 18:00:00 ]  #New pedestal after a long down time
+sbs.gem.pedfile = gemped/daq_ped_sbs_gem_run4135.dat
+sbs.gem.cmfile = gemped/db_cmr_sbs_gem_run4135.dat
+
 
 
 # # #################### END OF TIME-DEPENDENT PEDESTAL FILES #########################

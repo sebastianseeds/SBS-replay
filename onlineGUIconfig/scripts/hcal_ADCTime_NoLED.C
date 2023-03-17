@@ -8,7 +8,7 @@ void hcal_ADCTime_NoLED(){
   Double_t sbs_hcal_clus_blk_e[30] = {0.}, sbs_hcal_clus_blk_atime[30] = {0.}, sbs_hcal_nclus = 0., sbs_hcal_ledbit = -2.; 
   UInt_t fEvtHdr_fTrigBits = -1;
 
-  TH1D *h1_hcal_adctime_noled = new TH1D("h1_hcal_adctime_noled","HCal ADC Time No LED; ns",200,0,200);
+  TH1D *h1_hcal_adctime_noled = new TH1D("h1_hcal_adctime_noled","HCal ADC Time; ns",200,0,200);
 
   // Declare branches
   TTree *T = (TTree*) gDirectory->Get("T");
