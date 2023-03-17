@@ -40,6 +40,8 @@ variable bb.ts.over_threshold
 variable bb.bbtrig.a_time
 variable bb.bbtrig.a_amp_p
 variable bb.bbtrig.adcelemID
+variable bb.bbtrig.tdc
+variable bb.bbtrig.tdcelemID
 variable bb.tdctrig.tdc
 variable bb.tdctrig.tdcelemID
 
@@ -89,6 +91,7 @@ th2d hped_vs_elem_trig 'Pedestal vs BBTrig sums' bb.bbtrig.adcelemID[I] bb.bbtri
 th2d hADCtime_vs_elem_trig 'ADC time (ns) vs BBTrig sums' bb.bbtrig.adcelemID[I] bb.bbtrig.a_time[I] 25 0 25 200 0 200 bb.bbtrig.a_time[I]>0 
 #th2d hADCamp_vs_elem_trig 'ADC amplitude (mV) vs BBTrig sums' bb.bbtrig.adcelemID[I] bb.bbtrig.a_amp_p[I] 25 0 25 100 0 100 bb.bbtrig.a_time[I]>0 
 th2d hADCamp_vs_elem_trig 'ADC amplitude (mV) vs BBTrig sums' bb.bbtrig.adcelemID[I] bb.bbtrig.a_amp_p[I] 25 0 25 150 0 900 bb.bbtrig.a_time[I]>0 
-th1d helemID_trig 'BBCal Trigger Sums (total 25)' bb.bbtrig.adcelemID[I] 25 0 25 bb.bbtrig.a_time[I]>0
+th1d helemID_trig 'BBCal Trigger Sums (ADC) (total 25)' bb.bbtrig.adcelemID[I] 25 0 25 bb.bbtrig.a_time[I]>0
+th1d helemID_trigsum_tdc 'BBCal Trigger Sums (TDC) (total 25)' bb.bbtrig.tdcelemID[I] 25 0 25 bb.bbtrig.a_time[I]>0
 # TDC
 th2d htdc_vs_elem_trig 'TDC vs element ID : BBTrig (High)' bb.bbtrig.tdcelemID[I] bb.bbtrig.tdc[I] 25 0 25 200 -200 200 

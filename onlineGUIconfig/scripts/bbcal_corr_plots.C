@@ -28,16 +28,22 @@ void bbcal_corr_plots() {
   TH1F *h_coin = new TH1F("h_bbh_trigT_diff","HCal-BBCal Trigger Time Diff. (ns)",200,320,720);
   // TH2F *h2_bbcal_hcal_corr = new TH2F("h2_bbh_corr","BBCal-HCal Cluster Correlation; BB Shower Rows; HCal Rows",27,1,28,24,1,25);
   TH2F *h2_trigsum_shrow = new TH2F("h2_trigsum_shrow","BBCal Trigger Sums vs Shower rows; Shower rows; Trigger Sums",27,0,27,25,0,25);
+  TH2F *h2_trigsum_shid = new TH2F("h2_trigsum_shid","BBCal Trigger Sums ADC vs Shower ID; Shower ID; Trigger Sums (ADC)",189,0,189,25,0,25);
+  TH2F *h2_trigsumTDC_shid = new TH2F("h2_trigsum_shid","BBCal Trigger Sums TDC vs Shower ID; Shower ID; Trigger Sums (TDC)",189,0,189,25,0,25);
 
   // Declare trees
   TTree *T = (TTree*) gDirectory->Get("T");
   T->SetBranchStatus("*",0);
   Double_t nclusSH;      T->SetBranchStatus("bb.sh.nclus",1);     T->SetBranchAddress("bb.sh.nclus", &nclusSH);
   Double_t rblkSH;       T->SetBranchStatus("bb.sh.rowblk",1);    T->SetBranchAddress("bb.sh.rowblk", &rblkSH);
+  Double_t idblkSH;      T->SetBranchStatus("bb.sh.idblk",1);     T->SetBranchAddress("bb.sh.idblk", &idblkSH);
   Double_t nclusHCAL;    T->SetBranchStatus("sbs.hcal.nclus",1);  T->SetBranchAddress("sbs.hcal.nclus", &nclusHCAL);
   Double_t rblkHCAL;     T->SetBranchStatus("sbs.hcal.rowblk",1); T->SetBranchAddress("sbs.hcal.rowblk", &rblkHCAL);
   Double_t bbtrigelID[25]; T->SetBranchStatus("bb.bbtrig.adcelemID",1);  T->SetBranchAddress("bb.bbtrig.adcelemID", &bbtrigelID);
   Int_t NbbtrigelID;     T->SetBranchStatus("Ndata.bb.bbtrig.adcelemID",1);  T->SetBranchAddress("Ndata.bb.bbtrig.adcelemID", &NbbtrigelID);
+  Double_t BBtrigsumTDC[25]; T->SetBranchStatus("bb.bbtrig.tdc",1);  T->SetBranchAddress("bb.bbtrig.tdc", &BBtrigsumTDC);
+  Int_t NBBtrigsumTDCelemID;  T->SetBranchStatus("Ndata.bb.bbtrig.tdcelemID",1); T->SetBranchAddress("Ndata.bb.bbtrig.tdcelemID", &NBBtrigsumTDCelemID);
+  Double_t BBtrigsumTDCelemID[25]; T->SetBranchStatus("bb.bbtrig.tdcelemID",1);   T->SetBranchAddress("bb.bbtrig.tdcelemID", &BBtrigsumTDCelemID);
   Double_t tdcBBtrig[6]; T->SetBranchStatus("bb.tdctrig.tdc",1);  T->SetBranchAddress("bb.tdctrig.tdc", &tdcBBtrig);
   Int_t NtdcelemBBtrig;  T->SetBranchStatus("Ndata.bb.tdctrig.tdcelemID",1); T->SetBranchAddress("Ndata.bb.tdctrig.tdcelemID", &NtdcelemBBtrig);
   Double_t tdcelemBBtrig[6]; T->SetBranchStatus("bb.tdctrig.tdcelemID",1);   T->SetBranchAddress("bb.tdctrig.tdcelemID", &tdcelemBBtrig);
@@ -63,6 +69,8 @@ void bbcal_corr_plots() {
       //h2_bbcal_hcal_corr->Fill(rblkSH+1, rblkHCAL+1);`
       for (Int_t ihit=0; ihit<NbbtrigelID; ihit++) {
 	h2_trigsum_shrow->Fill(rblkSH, bbtrigelID[ihit]);
+	h2_trigsum_shid->Fill(idblkSH, bbtrigelID[ihit]);
+	h2_trigsumTDC_shid->Fill(idblkSH, BBtrigsumTDCelemID[ihit]);
       }
     }
   }
@@ -82,6 +90,13 @@ void bbcal_corr_plots() {
 
   padptr->cd(5);
   gStyle->SetOptStat(0);
-  h2_trigsum_shrow->SetMinimum(-0.1);
-  h2_trigsum_shrow->Draw("colz");
+  // h2_trigsum_shrow->SetMinimum(-0.1);
+  // h2_trigsum_shrow->Draw("colz");
+  h2_trigsum_shid->SetMinimum(-0.1);
+  h2_trigsum_shid->Draw("colz");
+
+  padptr->cd(6);
+  gStyle->SetOptStat(0);
+  h2_trigsumTDC_shid->SetMinimum(-0.1);
+  h2_trigsumTDC_shid->Draw("colz");
 }
