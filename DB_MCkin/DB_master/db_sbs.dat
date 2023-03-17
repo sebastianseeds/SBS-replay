@@ -1,0 +1,16 @@
+-------[ 2021-01-01 00:00:00 ]
+
+
+## track constraint widths:
+sbs.frontconstraintwidth_x = 0.75 # m
+sbs.frontconstraintwidth_y = 0.20 # m
+sbs.backconstraintwidth_x = 0.30 # m
+sbs.backconstraintwidth_y = 0.30 # m
+sbs.backconstraint_x0 = 0.0 
+sbs.backconstraint_y0 = 0.0
+sbs.frontconstraint_x0 = 0.0
+sbs.frontconstraint_y0 = 0.0
+
+sbs.gemorigin_xyz = 0.0 0.0 4.3
+
+sbs.magdist = 2.0

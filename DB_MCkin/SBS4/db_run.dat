@@ -1,0 +1,11 @@
+## Starting SBS-4 kinematics for GMN
+
+ebeam = 3.7278
+
+sbs.theta = -31.9
+sbs.pcentral = 2.373 # elastic proton momentum
+sbs.magdist = 2.25
+
+bb.theta = 36.0
+bb.pcentral = 2.122 
+bb.magdist = 1.7988 # from survey

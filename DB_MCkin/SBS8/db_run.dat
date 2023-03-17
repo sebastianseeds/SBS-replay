@@ -1,0 +1,10 @@
+## starting SBS-8 kinematics:
+
+ebeam = 5.9648
+sbs.theta = -29.9
+sbs.pcentral = 3.22
+sbs.magdist = 2.25
+
+bb.theta = 26.5
+bb.magdist = 1.97473 # meters, according to survey
+bb.pcentral = 3.6 # GeV
