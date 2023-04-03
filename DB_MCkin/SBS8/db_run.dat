@@ -1,7 +1,7 @@
 ## starting SBS-8 kinematics:
 
 ebeam = 5.9648
-sbs.theta = -29.9
+sbs.theta = -29.4
 sbs.pcentral = 3.22
 sbs.magdist = 2.25
 

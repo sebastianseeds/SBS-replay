@@ -38,11 +38,11 @@ double PI = TMath::Pi();
 double Mp = 0.938272;
 double Mn = 0.939565;
 
-void momentum_calib_simu( const char *configfilename, const char *outputfilename="NewMomentumFitTest.root" ){
+void momentum_calib_simu( Int_t kine = 4 ){
 
   gStyle->SetOptFit();
   
-  ifstream configfile(configfilename);
+  ifstream configfile(Form("setup_Pcalib_SBS%d_simu.txt",kine));
 
   //so as usual the main things to define are:
   // 1. List of files
@@ -566,7 +566,7 @@ void momentum_calib_simu( const char *configfilename, const char *outputfilename
 
   double pcentral = ebeam/(1.+ebeam/Mp*(1.-cos(bbtheta)));
 
-  TFile *fout = new TFile(outputfilename,"RECREATE");
+  TFile *fout = new TFile(Form("pcalibOUT_sbs%d.root",kine),"RECREATE");
 
   //After we get this working, we'll also want correlation plots of dpel and W vs. focal plane and target variables, new and old:
   TH1D *hdpel_old = new TH1D("hdpel_old","Old MEs;p/p_{elastic}(#theta)-1;",250,-0.25,0.25);
@@ -1089,9 +1089,9 @@ void momentum_calib_simu( const char *configfilename, const char *outputfilename
   //File containing old optics coefficients: 
   ifstream foldcoeffs(fname_oldcoeffs.Data());
 
-  TString newcoeffs_fname = outputfilename;
-  newcoeffs_fname.ReplaceAll(".root",".dat");
-  
+  //TString newcoeffs_fname = outputfilename;
+  //newcoeffs_fname.ReplaceAll(".root",".dat");
+  TString newcoeffs_fname = Form("pcalibcoeff_sbs%d.dat",kine);
   ofstream fnewcoeffs( newcoeffs_fname.Data() );
 
   fnewcoeffs << "bb.preconflag = 1" << endl;

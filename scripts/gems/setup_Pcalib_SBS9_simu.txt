@@ -1,6 +1,11 @@
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs9_lh2_70p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs9_lh2_70p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032023/replayed_gmn_sbs9_lh2_70p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs9_ld2_70p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs9_ld2_70p_job_2.root
+/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs9_ld2_70p_job_1.root
+/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs9_ld2_70p_job_2.root
 endlist
-bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz[0])<0.08&&bb.gem.track.nhits>3&&sbs.hcal.e>0.03&&abs(bb.tr.tg_th[0])<0.15&&abs(bb.tr.tg_ph[0])<0.3
+bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&sbs.hcal.e>0.025&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
 order 1
 useAlShield 0

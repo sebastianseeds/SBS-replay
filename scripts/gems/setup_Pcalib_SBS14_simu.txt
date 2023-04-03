@@ -3,11 +3,14 @@
 #/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs14_v2_job_3.root
 #/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs14_v2_job_4.root
 #/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs14_v2_job_5.root
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_1.root
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_2.root
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_3.root
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_4.root
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_5.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_2.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_3.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_4.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_ld2_70p_job_5.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs14_lh2_70p_job_1.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs14_ld2_70p_job_1.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs14_ld2_70p_job_2.root
 endlist
 bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&sbs.hcal.e>0.025&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
@@ -23,10 +26,10 @@ Ltgt 15.0
 rho_tgt 0.072
 celldiameter 4.064
 usehcalcut 1
-dx0 -0.72
-dy0 -0.01
-dxsigma 0.076
-dysigma 0.085
+dx0 -1.18
+dy0 0.001
+dxsigma 0.048
+dysigma 0.045
 GEMpitch 10.0
 #fix_pth0 1
 #fix_pthx 1

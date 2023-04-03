@@ -1,6 +1,15 @@
-/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs11_lh2_100p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs11_lh2_100p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_ld2_100p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_ld2_100p_job_2.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs11_ld2_100p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs11_ld2_100p_job_2.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_1.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_2.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_3.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_4.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_5.root
 endlist
-bb.tr.n>0&&abs(bb.tr.vz[0])<0.08&&bb.gem.track.nhits>2&&bb.tr.p[0]>2.0&&sbs.hcal.e>0.03&&bb.ps.e>0.2
+bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&sbs.hcal.e>0.025&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
 order 1
 useAlShield 0
