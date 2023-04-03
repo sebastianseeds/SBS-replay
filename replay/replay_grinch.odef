@@ -10,16 +10,10 @@ th1d h_GRINCH_time_1D_electron 'GRINCH hits (good electrons); LE (ns)' bb.grinch
 #th2d h_GRINCH_xhit_vs_xtrack 'GRINCH hits (good electrons); track x at GRINCH entry window (m); GRINCH hit x position (m)'
 
 variable bb.grinch_tdc.ngoodhits
-variable bb.grinch_tdc.hit.pmtnum
-variable bb.grinch_tdc.hit.row
-variable bb.grinch_tdc.hit.col
-variable bb.grinch_tdc.hit.xhit
-variable bb.grinch_tdc.hit.yhit
-variable bb.grinch_tdc.hit.time
-variable bb.grinch_tdc.hit.amp
-variable bb.grinch_tdc.hit.clustindex
-variable bb.grinch_tdc.hit.trackindex
 
 variable bb.grinch_tdc.nclus 
+variable bb.grinch_tdc.ntrackmatch
 variable bb.grinch_tdc.bestcluster
+block bb.grinch_tdc.allclus.*
 block bb.grinch_tdc.clus.*
+block bb.grinch_tdc.hit.*

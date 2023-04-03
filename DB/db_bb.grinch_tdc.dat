@@ -88,8 +88,8 @@ bb.grinch_tdc.tdc.offset =
 # after defining individual TDC channel offsets, we set "GoodTimeCut" to zero for GRINCH TDC hits:
 bb.grinch_tdc.tdc.GoodTimeCut = 0.0
 # set a somewhat looser software window for GRINCH TDC hits:
-bb.grinch_tdc.hit_mintime = -20.0
-bb.grinch_tdc.hit_maxtime = 20.0
+bb.grinch_tdc.hit_mintime = -25.0
+bb.grinch_tdc.hit_maxtime = 25.0
 #bb.grinch_tdc.reftdcGoodTimeCut = 50
 
 
@@ -239,6 +239,24 @@ bb.grinch_tdc.ypos =
 0.1085 0.0775 0.0465 0.0155 -0.0155 -0.0465 -0.0775 -0.1085 
 0.124 0.093 0.062 0.031 0 -0.031 -0.062 -0.093 -0.124 
 1.0 -1.0
+
+# max separation between PMTs for grouping into clusters:
+bb.grinch_tdc.maxsep = 0.07 # this is twice the separation between neighboring PMTs in the matrix, to account for clusters with "holes"
+
+bb.grinch_tdc.nmirror = 4
+bb.grinch_tdc.trackmatch_xslope = 0.71 0.71 0.71 0.71
+bb.grinch_tdc.trackmatch_x0 = -0.158 -0.0193 -0.0047 0.1968 
+bb.grinch_tdc.trackmatch_xsigma = 0.016 0.014 0.015 0.016 
+bb.grinch_tdc.trackmatch_yslope = 1.57 2.02 2.36 1.36
+bb.grinch_tdc.trackmatch_y0 = 0.04 -0.038 -0.031 -0.0878
+bb.grinch_tdc.trackmatch_ysigma = 0.08 0.026 0.036 0.023
+bb.grinch_tdc.trackmatch_xmin = -0.8 -0.55 -0.1 0.45
+bb.grinch_tdc.trackmatch_xmax = -0.45 0.1 0.6 0.85 
+
+# wide track-matching cut until we develop a way to deal with the mirror boundaries in the x track x GRINCH correlation 
+bb.grinch_tdc.trackmatch_nsigma_cut = 4.5
+
+
 
 --------[ 2022-04-01 00:00:00 ]
 bb.grinch_tdc.tdc.offset = 0.0

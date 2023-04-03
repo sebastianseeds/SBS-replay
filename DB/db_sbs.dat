@@ -94,12 +94,7 @@ sbs.optics_parameters =
  -2.4792623e-16  2.7226815e-16 -1.3185506e-15 -8.6599971e-16  0 0 0 0 2
 
 
--------[ 2023-03-08 00:00:00 ] New Constraints for GEN3 kinematic
-
-#sbs.backconstraint_x0 = 0.112
-#sbs.backconstraint_y0 = 0.114
-#sbs.backconstraintwidth_x = 0.27
-#sbs.backconstraintwidth_y = 0.22
+-------[ 2023-03-08 00:00:00 ] New Constraints for GEN4 kinematic
 
 sbs.backconstraint_x0 = 0.112
 sbs.backconstraint_y0 = 0.121
