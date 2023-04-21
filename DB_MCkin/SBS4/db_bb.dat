@@ -12,7 +12,7 @@ bb.B_pth1 =      0.93026782
 bb.C_pth1 = 0.0
 
 ## Optics from g4sbs/root_macros/Optics_GMN.C
-bb.gemorigin_xyz -0.1701 0.0 2.9087
+#bb.gemorigin_xyz -0.1701 0.0 2.9087
 
 bb.optics_order = 2
 bb.optics_parameters = 

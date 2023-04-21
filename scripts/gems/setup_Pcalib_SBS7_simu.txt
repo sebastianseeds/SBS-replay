@@ -1,5 +1,6 @@
 #/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs7_ld2_85p_job*
-/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs7_ld2_85p_job*
+#/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs7_ld2_85p_job*
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs7_lh2_85p_job_*
 endlist
 bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&sbs.hcal.e>0.025&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
@@ -15,8 +16,8 @@ Ltgt 15.0
 rho_tgt 0.072
 celldiameter 4.064
 usehcalcut 1
-dx0 -0.69
-dy0 -0.004
+dx0 -1.1
+dy0 -0.1
 dxsigma 0.063
 dysigma 0.085
 GEMpitch 10.0

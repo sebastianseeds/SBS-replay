@@ -4,8 +4,8 @@ bb.preconflag = 1
 # and momentum expansion coefficients are for delta = p(first order) * (1+delta)
 # In most of the acceptance we don't need any corrections beyond the first-order model
 
-bb.A_pth1 =     0.280696021
-bb.B_pth1 =       0.4179642
+bb.A_pth1 =     0.281551621
+bb.B_pth1 =     0.462174967
 bb.C_pth1 = 0.0
 
 #NOTE: angle and vertex reconstruction coefficients are from simu_sbs9.dat

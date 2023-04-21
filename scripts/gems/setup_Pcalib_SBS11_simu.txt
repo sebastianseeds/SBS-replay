@@ -3,11 +3,12 @@
 #/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_ld2_100p_job_2.root
 #/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs11_ld2_100p_job_1.root
 #/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs11_ld2_100p_job_2.root
-/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_1.root
-/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_2.root
-/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_3.root
-/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_4.root
-/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_5.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_2.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_3.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_4.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_5.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs11_lh2_100p_job_*
 endlist
 bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&sbs.hcal.e>0.025&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
@@ -23,8 +24,8 @@ Ltgt 15.0
 rho_tgt 0.072
 celldiameter 4.064
 usehcalcut 1
-dx0 -0.63
-dy0 0.015
+dx0 -1.08
+dy0 -0.13
 dxsigma 0.077
 dysigma 0.083
 GEMpitch 10.0

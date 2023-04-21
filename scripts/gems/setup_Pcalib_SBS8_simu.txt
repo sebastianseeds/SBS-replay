@@ -1,8 +1,9 @@
 #/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs8_lh2_70p_job_1.root
 #/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs8_ld2_70p_job_1.root
 #/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs8_ld2_70p_job_2.root
-/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs8_ld2_70p_job_1.root
-/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs8_ld2_70p_job_2.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs8_ld2_70p_job_1.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/testsim/replayed_gmn_sbs8_ld2_70p_job_2.root
+/lustre19/expphy/volatile/halla/sbs/seeds/sim032123/replayed_gmn_sbs8_lh2_70p_job_*
 endlist
 bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&sbs.hcal.e>0.025&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
@@ -18,10 +19,10 @@ Ltgt 15.0
 rho_tgt 0.072
 celldiameter 4.064
 usehcalcut 1
-dx0 -0.77
-dy0 -0.04
-dxsigma 0.14
-dysigma 0.067
+dx0 -1.08
+dy0 -0.32
+dxsigma 0.07
+dysigma 0.09
 GEMpitch 10.0
 #fix_pth0 1
 #fix_pthx 1
@@ -29,12 +30,12 @@ fix_pth0 0
 fix_pthx 0
 #pth0 0.274932
 #pthx 0.101809
-bbdist 2.00
-A_pth0 0.27676
-B_pth0 1.1976
+bbdist 1.97473
+A_pth0 0.32
+B_pth0 1.0
 C_pth0 0.4764
-Wmin 0.6
-Wmax 1.2
+Wmin 0.0
+Wmax 2.0
 dpel_min -0.05
 dpel_max 0.05
 useAlShield 0

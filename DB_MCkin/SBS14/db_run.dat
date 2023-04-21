@@ -6,5 +6,5 @@ sbs.pcentral = 4.8 # GeV
 sbs.magdist = 2.25
 
 bb.theta = 46.5 # degrees
-bb.magdist = 1.84787 # meters, from survey
+bb.magdist = 1.85 # meters, nominal
 bb.pcentral = 2.0 # GeV
