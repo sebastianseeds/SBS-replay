@@ -1,0 +1,69 @@
+-------[ 2021-01-01 00:00:00 ] #Beginning of time
+
+# BPM settings, used for track vertex
+BPM_separation = 5.15 # Distance between BPMA and BPMB
+BPMA_dist_to_targ = 7.53 # Distance from BPMA and the nominal 0 position vertex z position in the hall
+
+fNevents_rollingmax = 500  # Number of events used in the beam averaging
+
+Raster_size = 5 #mm
+Raster_type = 0 # 0 = no raster, 1 = Upstream Raster, 2 = Up & down stream raster
+
+Raster_curr_x_range = 29106 59225  #Upstream Raster min and max value
+Raster_curr_y_range = 29607 57139  
+
+Raster2_curr_x_range = 35250 52650 #Downstream Raster min and max value
+Raster2_curr_y_range = 34650 50700
+
+
+------[ 2022-09-01 00:00:00 ] Beginning of experiment GEN-1
+	
+# BPM settings, used for track vertex
+BPM_separation = 5.15 
+BPMA_dist_to_targ = 7.53 
+
+fNevents_rollingmax = 500  
+
+Raster_size = 5 #mm
+Raster_type = 0 # 0 = no raster, 1 = Upstream Raster, 2 = Up & down stream raster
+
+Raster_curr_x_range = 29106 59225  #Upstream Raster min and max value
+Raster_curr_y_range = 29607 57139  
+
+Raster2_curr_x_range = 35250 52650 #Downstream Raster min and max value
+Raster2_curr_y_range = 34650 50700
+
+------[ 2022-10-10 00:00:00 ] Optics for GEN-2 - No Raster
+
+Raster_type = 0
+
+------[ 2022-10-12 00:00:00 ] H2 for GEN-1 - With Raster
+
+Raster_type = 1
+
+Raster_curr_x_range = 39006 49254 
+Raster_curr_y_range = 38580 48280
+
+------[ 2022-10-17 00:00:00 ] GEN-2 Produciton - With Raster
+
+Raster_type = 1
+
+Raster_curr_x_range = 34720 53590 
+Raster_curr_y_range = 34705 52085
+
+------[ 2022-11-11 00:00:00 ] GEN-3 Produciton
+
+Raster_type = 1
+
+Raster_curr_x_range = 29106 59225
+Raster_curr_y_range = 29607 57139
+
+------[ 2023-01-14 00:00:00 ] GEN-4 Produciton
+
+Raster_type = 2
+
+Raster_curr_x_range = 34000 54350
+Raster_curr_y_range = 35250 51650
+
+Raster2_curr_x_range = 35250 52650
+Raster2_curr_y_range = 34650 50700

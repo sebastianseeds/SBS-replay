@@ -1,6 +1,8 @@
 #tree variables: 
 block bb.gem.track.*
 block bb.gem.hit.*
+
+variable bb.gem.trigtime
 variable bb.gem.nlayershit
 variable bb.gem.nlayershitu
 variable bb.gem.nlayershitv

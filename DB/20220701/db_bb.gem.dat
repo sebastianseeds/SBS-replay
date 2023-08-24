@@ -1217,6 +1217,12 @@ bb.gem.addstrip_tcut = 100.0
 bb.gem.addstrip_ccor_cut = -1.1
 
 
+---------[ 2022-11-24 00:00:00 ] # negative signal study for full readout runs
+bb.gem.do_neg_signal_study = 1
+
+---------[ 2022-11-24 02:15:00 ] # end negative signal study
+bb.gem.do_neg_signal_study = 0
+
 ---------[ 2022-11-26 15:00:00 ] # zero-field runs for optics
 
 bb.gem.useopticsconstraint = 0

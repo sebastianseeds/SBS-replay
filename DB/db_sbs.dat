@@ -4,9 +4,9 @@
 ## track constraint widths:
 sbs.frontconstraintwidth_x = 0.75 # m
 sbs.frontconstraintwidth_y = 0.25 # m
-sbs.backconstraintwidth_x = 0.3 # m
+sbs.backconstraintwidth_x = 0.28 # m
 sbs.backconstraintwidth_y = 0.23 # m
-sbs.backconstraint_x0 = 0.109 
+sbs.backconstraint_x0 = 0.5 
 sbs.backconstraint_y0 = -0.0042
 sbs.frontconstraint_x0 = 0.0
 sbs.frontconstraint_y0 = 0.0

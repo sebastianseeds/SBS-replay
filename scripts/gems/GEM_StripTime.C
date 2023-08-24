@@ -40,7 +40,7 @@ double PulseFunc( double *x, double *par ){
   if( t < t0 ){
     return Baseline;
   } else {
-    return Baseline + A * (t-t0)/tau * exp(-(t-t0)/tau );
+    return Baseline + A * (t-t0)/tau * exp(1.-(t-t0)/tau );
   }
 }
 //The question here is should we do this by module, by APV card? How granular do we want to be?
@@ -62,6 +62,8 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
   int nmodules;
 
   TString prefix = "bb.gem";
+
+  TString prefix_spec = "bb";
   
   TChain *C = new TChain("T");
 
@@ -99,6 +101,11 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
 	  if( skey == "prefix" ){
 	    TString stemp = ( (TObjString*) (*tokens)[1] )->GetString();
 	    prefix = stemp;
+	  }
+
+	  if( skey == "prefix_spec" ){
+	    TString stemp = ( (TObjString*) (*tokens)[1] )->GetString();
+	    prefix_spec = stemp;
 	  }
 
 	  if( skey == "fixtau" ){
@@ -150,7 +157,8 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
   double besttrack;
   double tracknhits[10000];
   double trackX[10000],trackY[10000], trackXp[10000], trackYp[10000], trackChi2NDF[10000];
-  
+  double trackXtar[10000],trackYtar[10000], trackXptar[10000], trackYptar[10000], trackP[10000];
+  double trackVz[10000];
   //Needed "hit" variables (others can be ignored for now:
   //The data types for all the branches are "double". Hope that doesn't cause problems: 
   double ngoodhits;
@@ -160,7 +168,12 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
   double hit_vlocal[10000];
   double hit_UtimeMaxStrip[10000];
   double hit_VtimeMaxStrip[10000];
+  double hit_UtimeMaxStripDeconv[10000];
+  double hit_VtimeMaxStripDeconv[10000];
+  double hit_UtimeMaxStripFit[10000];
+  double hit_VtimeMaxStripFit[10000];
   double hit_deltat[10000];
+  double hit_deltat_deconv[10000];
   double hit_ADCmaxsampU[10000];
   double hit_ADCmaxsampV[10000];
   double hit_ADCmaxstripU[10000];
@@ -211,14 +224,26 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
   C->SetBranchStatus( branchname.Format( "%s.hit.v", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.nstripu", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.nstripv", prefix.Data() ), 1 );
+
+  C->SetBranchStatus( branchname.Format( "%s.tr.tg_x", prefix_spec.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.tr.tg_y", prefix_spec.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.tr.tg_th", prefix_spec.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.tr.tg_ph", prefix_spec.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.tr.vz", prefix_spec.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.tr.p", prefix_spec.Data() ), 1 );
   
   C->SetBranchStatus( branchname.Format( "%s.hit.deltat", prefix.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.hit.deltat_deconv", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCmaxstripU", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCmaxstripV", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCmaxsampU", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCmaxsampV", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.UtimeMaxStrip", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.VtimeMaxStrip", prefix.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.hit.UtimeMaxStripDeconv", prefix.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.hit.VtimeMaxStripDeconv", prefix.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.hit.UtimeMaxStripFit", prefix.Data() ), 1 );
+  C->SetBranchStatus( branchname.Format( "%s.hit.VtimeMaxStripFit", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCfrac0_Umax", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCfrac1_Umax", prefix.Data() ), 1 );
   C->SetBranchStatus( branchname.Format( "%s.hit.ADCfrac2_Umax", prefix.Data() ), 1 );
@@ -261,6 +286,10 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
   C->SetBranchAddress( branchname.Format( "%s.hit.deltat", prefix.Data() ), hit_deltat );
   C->SetBranchAddress( branchname.Format( "%s.hit.UtimeMaxStrip", prefix.Data() ), hit_UtimeMaxStrip );
   C->SetBranchAddress( branchname.Format( "%s.hit.VtimeMaxStrip", prefix.Data() ), hit_VtimeMaxStrip );
+  C->SetBranchAddress( branchname.Format( "%s.hit.UtimeMaxStripDeconv", prefix.Data() ), hit_UtimeMaxStripDeconv );
+  C->SetBranchAddress( branchname.Format( "%s.hit.VtimeMaxStripDeconv", prefix.Data() ), hit_VtimeMaxStripDeconv );
+  C->SetBranchAddress( branchname.Format( "%s.hit.UtimeMaxStripFit", prefix.Data() ), hit_UtimeMaxStripDeconvFit );
+  C->SetBranchAddress( branchname.Format( "%s.hit.VtimeMaxStripFit", prefix.Data() ), hit_VtimeMaxStripDeconvFit );
   C->SetBranchAddress( branchname.Format( "%s.hit.ADCmaxstripU", prefix.Data() ), hit_ADCmaxstripU );
   C->SetBranchAddress( branchname.Format( "%s.hit.ADCmaxstripV", prefix.Data() ), hit_ADCmaxstripV );
   C->SetBranchAddress( branchname.Format( "%s.hit.ADCmaxsampU", prefix.Data() ), hit_ADCmaxsampU );
@@ -392,6 +421,26 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
 
   TH2D *hTdeconvVvsU = new TH2D("hTdeconvVvsU", ";Deconv. U strip time (ns);Deconv. V strip time (ns)",
 				150,-50,250,150,-50,250 );
+
+  TClonesArray *htstripU_vs_ttrig_by_module = new TClonesArray("TH2D",nmodules);
+  TClonesArray *htstripV_vs_ttrig_by_module = new TClonesArray("TH2D",nmodules);
+
+  TClonesArray *htstripU_vs_ttrig_by_module_prof = new TClonesArray("TProfile",nmodules);
+  TClonesArray *htstripV_vs_ttrig_by_module_prof = new TClonesArray("TProfile",nmodules);
+  
+  for( int imod=0; imod<nmodules; imod++ ){
+    TString histname;
+    histname.Form( "htstripU_vs_ttrig_module%d", imod );
+    new( (*htstripU_vs_ttrig_by_module)[imod] ) TH2D( histname.Data(), "U strips;t_{trig}-368 ns; t_{strip} -85 ns",250,-25,25,250,-50,50 );
+    histname.Form( "htstripV_vs_ttrig_module%d", imod );
+    new( (*htstripV_vs_ttrig_by_module)[imod] ) TH2D( histname.Data(), "V strips;t_{trig}-368 ns; t_{strip} -85 ns",250,-25,25,250,-50,50 );
+
+    histname.Form( "htstripU_vs_ttrig_module%d_prof", imod );
+    new( (*htstripU_vs_ttrig_by_module_prof)[imod] ) TProfile( histname.Data(), "U strips;t_{trig}-368 ns; t_{strip} -85 ns",250,-25,25);
+    histname.Form( "htstripV_vs_ttrig_module%d_prof", imod );
+    new( (*htstripV_vs_ttrig_by_module_prof)[imod] ) TProfile( histname.Data(), "V strips;t_{trig}-368 ns; t_{strip} -85 ns",250,-25,25);
+    
+  }
   
   long nevent=0;
 
@@ -723,6 +772,21 @@ void GEM_StripTime( const char *configfilename, const char *outfilename="GEM_Str
 	  
 	  hUtimeMaxStrip_vs_module->Fill( hit_module[ihit], hit_UtimeMaxStrip[ihit] );
 	  hVtimeMaxStrip_vs_module->Fill( hit_module[ihit], hit_VtimeMaxStrip[ihit] );
+
+	  if( int( hit_module[ihit] ) < nmodules && int(hit_module[ihit]) >= 0 ){
+
+	    TH2D *htempU = (TH2D*) (*htstripU_vs_ttrig_by_module)[int(hit_module[ihit])];
+	    if( htempU ) htempU->Fill( ttrig, hit_UtimeMaxStrip[ihit]-85.0 );
+	    TH2D *htempV = (TH2D*) (*htstripV_vs_ttrig_by_module)[int(hit_module[ihit])];
+	    if( htempV ) htempV->Fill( ttrig, hit_VtimeMaxStrip[ihit]-85.0 );
+
+	    ( (TProfile*) (*htstripU_vs_ttrig_by_module_prof)[int(hit_module[ihit])] )->Fill( ttrig, hit_UtimeMaxStrip[ihit]-85.0 );
+	    ( (TProfile*) (*htstripV_vs_ttrig_by_module_prof)[int(hit_module[ihit])] )->Fill( ttrig, hit_VtimeMaxStrip[ihit]-85.0 );
+	    
+	    
+	    // ( (TH2D*) (*htstripU_vs_ttrig_by_module)[int(hit_module[ihit])] )->Fill( ttrig, hit_UtimeMaxStrip[ihit]-85.0 );
+	    // ( (TH2D*) (*htstripV_vs_ttrig_by_module)[int(hit_module[ihit])] )->Fill( ttrig, hit_VtimeMaxStrip[ihit]-85.0 );
+	  }
 	  //gPulseU->Delete();
 	  //gPulseV->Delete();
 	}

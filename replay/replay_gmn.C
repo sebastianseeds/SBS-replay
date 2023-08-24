@@ -280,15 +280,17 @@ void replay_gmn(UInt_t runnum=10491, Long_t nevents=-1, Long_t firstevent=0, con
 
   prefix = gSystem->Getenv("OUT_DIR");
 
-  TString outfilename;
+  TString outfilename, outfilebase;
 
   if( nevents > 0 ){ 
 
-    outfilename.Form( "%s/%s_replayed_%d_stream%d_seg%d_%d_firstevent%d_nevent%d.root", prefix.Data(), fname_prefix, runnum,
+    outfilebase.Form( "%s_replayed_%d_stream%d_seg%d_%d_firstevent%d_nevent%d", fname_prefix, runnum,
 		      stream, firstsegment, lastsegment, firstevent, nevents );
+    outfilename.Form( "%s/%s.root", prefix.Data(), outfilebase.Data());
   } else {
-    outfilename.Form( "%s/%s_fullreplay_%d_stream%d_seg%d_%d.root", prefix.Data(), fname_prefix, runnum,
+    outfilebase.Form( "%s_fullreplay_%d_stream%d_seg%d_%d", fname_prefix, runnum,
 		      stream, firstsegment, lastsegment );
+    outfilename.Form( "%s/%s.root", prefix.Data(), outfilebase.Data());
   }
  
 
@@ -303,8 +305,9 @@ void replay_gmn(UInt_t runnum=10491, Long_t nevents=-1, Long_t firstevent=0, con
   // File to record cuts accounting information
   
   prefix = gSystem->Getenv("LOG_DIR");
-  analyzer->SetSummaryFile(Form("%s/replay_gmn_%d_stream%d_seg%d_%d.log", prefix.Data(), runnum, 
-				stream, firstsegment, lastsegment));
+  // analyzer->SetSummaryFile(Form("%s/replay_gmn_%d_stream%d_seg%d_%d.log", prefix.Data(), runnum, 
+  // 				stream, firstsegment, lastsegment));
+  analyzer->SetSummaryFile(Form("%s/%s.log", prefix.Data(), outfilebase.Data()));
   prefix = gSystem->Getenv("SBS_REPLAY");
   
   prefix += "/replay/";

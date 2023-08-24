@@ -1,10 +1,5 @@
-R__ADD_INCLUDE_PATH($SBS/include)
-R__ADD_LIBRARY_PATH($SBS/lib64)
-R__ADD_LIBRARY_PATH($SBS/lib)
-R__LOAD_LIBRARY(libsbs.so)
-
-#if !defined(__CLING__) || defined(__ROOTCLING__)
 #include <iostream>
+#include <unordered_map> 
 
 #include "TSystem.h"
 #include "THaGlobals.h"
@@ -28,10 +23,27 @@ R__LOAD_LIBRARY(libsbs.so)
 #include "SBSGEMSpectrometerTracker.h"
 #include "SBSTimingHodoscope.h"
 
-#include "SBSSimDecoder.h"
-#endif
+#include "THaGoldenTrack.h"
+#include "THaPrimaryKine.h"
+#include "THaRunParameters.h"
 
-void replay_gmn_mc(const char* filebase, uint nev = -1, TString experiment="gmn")
+#include "SBSSimDecoder.h"
+
+TDatime get_datime(uint sbsconfig)
+/* Returns TDatime for a given SBS configuration */
+{
+  std::unordered_map<uint,TDatime> m = {{4,  "2021-10-21 07:09:00"},
+					{7,  "2021-11-13 22:06:00"},
+					{11, "2021-11-25 12:17:00"},
+					{14, "2022-01-12 11:55:00"},
+					{8,  "2022-01-22 10:16:00"},
+					{9,  "2022-02-02 01:55:00"}};
+  if (m.find(sbsconfig)==m.end()) 
+    throw std::invalid_argument("Invalid SBS config!! Valid options are: 4,7,11,14,8,9");
+  return m[sbsconfig];
+}
+
+void replay_gmn_mc(const char* filebase, uint sbsconfig, uint nev = -1, TString experiment="gmn")
 {
   SBSBigBite* bigbite = new SBSBigBite("bb", "BigBite spectrometer" );
   //bigbite->AddDetector( new SBSBBShower("ps", "BigBite preshower") );
@@ -40,6 +52,7 @@ void replay_gmn_mc(const char* filebase, uint nev = -1, TString experiment="gmn"
   bigbite->AddDetector( new SBSGRINCH("grinch", "GRINCH PID") );
   //bigbite->AddDetector( new SBSGenericDetector("grinch", "GRINCH PID") );
   bigbite->AddDetector( new SBSTimingHodoscope("hodo", "timing hodo") );
+  //bigbite->AddDetector( new SBSGEMSpectrometerTracker("gem", "GEM tracker") );
   bigbite->AddDetector( new SBSGEMSpectrometerTracker("gem", "GEM tracker") );
   gHaApps->Add(bigbite);
   
@@ -47,7 +60,7 @@ void replay_gmn_mc(const char* filebase, uint nev = -1, TString experiment="gmn"
   harm->AddDetector( new SBSHCal("hcal","HCAL") );
   gHaApps->Add(harm);
 
-  //bigbite->SetDebug(2);
+  // bigbite->SetDebug(5);
   //harm->SetDebug(2);
 
   THaAnalyzer* analyzer = new THaAnalyzer;
@@ -67,13 +80,19 @@ void replay_gmn_mc(const char* filebase, uint nev = -1, TString experiment="gmn"
   THaRunBase *run = new SBSSimFile(run_file.Data(), "gmn", "");
   run->SetFirstEvent(0);
 
-  cout << "Number of events to replay (-1=all)? ";
+  //cout << "Number of events to replay (-1=all)? ";
   //if( nev > 0 )
   //run->SetFirstEvent(110);
   run->SetLastEvent(nev);
   
   run->SetDataRequired(0);
-  run->SetDate(TDatime());
+
+  run->SetDate(get_datime(sbsconfig));
+  //run->SetDate(TDatime());
+ 
+
+  gHaPhysics->Add( new THaGoldenTrack( "BB.gold", "BigBite golden track", "bb" ));
+  gHaPhysics->Add( new THaPrimaryKine( "e.kine", "electron kinematics", "bb", 0.0, 0.938272 ));
   
   TString out_dir = gSystem->Getenv("OUT_DIR");
   if( out_dir.IsNull() )
@@ -83,7 +102,7 @@ void replay_gmn_mc(const char* filebase, uint nev = -1, TString experiment="gmn"
   analyzer->SetOutFile( out_file.Data() );
   cout << "output file " << out_file.Data() << " set up " << endl; 
   // File to record cuts accounting information
-  analyzer->SetSummaryFile("sbs_hcal_test.log"); // optional
+  analyzer->SetSummaryFile(out_file.ReplaceAll(".root",".log")); // optional
 
   // Change the cratemap to point to the sim one
   analyzer->SetCrateMapFileName("sbssim_cratemap");
@@ -109,12 +128,17 @@ void replay_gmn_mc(const char* filebase, uint nev = -1, TString experiment="gmn"
   
   analyzer->SetVerbosity(2);  // write cut summary to stdout
   analyzer->EnableBenchmarks();
-  
+
+  run->Init();
   run->Print();
+
+  run->GetParameters()->Print();
   
   cout << "about to process " << endl;
   analyzer->Process(run);
 
+  run->GetParameters()->Print();
+  
   // Clean up
 
   analyzer->Close();

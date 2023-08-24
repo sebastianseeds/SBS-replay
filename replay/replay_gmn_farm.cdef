@@ -23,6 +23,7 @@ CoarseReconstruct_master 1
 
 # Additionally we require a good track to write output
 Block: Physics
+BBCalSingles  g.trigbits==1
 GoodPreShower bb.ps.ngoodADChits>0
 GoodShower    bb.sh.ngoodADChits>0
 GoodBBCAL     GoodPreShower||GoodShower

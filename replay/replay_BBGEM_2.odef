@@ -1,6 +1,8 @@
 #tree variables: 
 block bb.gem.track.*
 block bb.gem.hit.*
+
+variable bb.gem.trigtime
 variable bb.gem.nlayershit
 variable bb.gem.nlayershitu
 variable bb.gem.nlayershitv
@@ -278,10 +280,10 @@ th1d hbb_gem_m0_StripTime_good_CM 'UVA U/V layer 0; Strip Mean Time (ns);' bb.ge
 th1d hbb_gem_m0_StripTsigma_good_CM 'UVA U/V layer 0; Strip RMS Time (ns);' bb.gem.m0.strip.Tsigma[I] 150 0 150 bb.gem.m0.strip.CM_GOOD[I]
 
 th1d hbb_gem_m0_strip_Tdiff 'UVA U/V layer 0; Tstrip - Tclust (ns);' bb.gem.m0.strip.Tdiff[I] 200 -40 40 bb.gem.m0.strip.ontrack[I]
-th1d hbb_gem_m0_strip_CorrCoeff 'UVA U/V layer 0; Strip. Corr. Coeff.;' bb.gem.m0.strip.CorrCoeff[I] 200 0.5 1 bb.gem.m0.strip.ontrack[I]
-th2d hbb_gem_m0_strip_CorrCoeff_vs_Tdiff 'UVA U/V layer 0; Tstrip - Tclust (ns); Corr. Coeff.' bb.gem.m0.strip.Tdiff[I] bb.gem.m0.strip.CorrCoeff[I] 200 -40 40 200 0.5 1 bb.gem.m0.strip.ontrack[I]
+th1d hbb_gem_m0_strip_CorrCoeff 'UVA U/V layer 0; Strip. Corr. Coeff.;' bb.gem.m0.strip.CorrCoeff[I] 200 -1 1 bb.gem.m0.strip.ontrack[I]
+th2d hbb_gem_m0_strip_CorrCoeff_vs_Tdiff 'UVA U/V layer 0; Tstrip - Tclust (ns); Corr. Coeff.' bb.gem.m0.strip.Tdiff[I] bb.gem.m0.strip.CorrCoeff[I] 200 -40 40 200 -1 1 bb.gem.m0.strip.ontrack[I]
 th2d hbb_gem_m0_strip_Tdiff_vs_ADC 'UVA U/V layer 0; strip ADC sum ; Tstrip - Tclust (ns)' bb.gem.m0.strip.ADCsum[I] bb.gem.m0.strip.Tdiff[I] 200 0 1.5e4 200 -40 40 bb.gem.m0.strip.ontrack[I]
-th2d hbb_gem_m0_strip_CorrCoeff_vs_ADC 'UVA U/V layer 0; strip ADC sum ; Corr. Coeff.' bb.gem.m0.strip.ADCsum[I] bb.gem.m0.strip.CorrCoeff[I] 200 0 1.5e4 200 0.5 1 bb.gem.m0.strip.ontrack[I]
+th2d hbb_gem_m0_strip_CorrCoeff_vs_ADC 'UVA U/V layer 0; strip ADC sum ; Corr. Coeff.' bb.gem.m0.strip.ADCsum[I] bb.gem.m0.strip.CorrCoeff[I] 200 0 1.5e4 200 -1 1 bb.gem.m0.strip.ontrack[I]
 
 th1d hbb_gem_m0_ADCsumU_neg_good 'UVA U/V layer 0; Negative Strip ADC sum, U/X strips;' bb.gem.m0.strip.ADCsum[I] 500 -3000 -250 bb.gem.m0.strip.isnegontrackU[I]
 th1d hbb_gem_m0_ADCsumV_neg_good 'UVA U/V layer 0; Negative Strip ADC sum, V/Y strips;' bb.gem.m0.strip.ADCsum[I] 500 -3000 -250 bb.gem.m0.strip.isnegontrackV[I]

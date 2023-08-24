@@ -442,8 +442,8 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
 
   double nhits[MAXNTRACKS];
   
-  double xHCAL, yHCAL, EHCAL,THCAL;
-  double EPS, ESH, xSH, ySH, xPS;
+  double xHCAL, yHCAL, EHCAL,THCAL, THCAL_ADC;
+  double EPS, ESH, xSH, ySH, xPS, TSH, TPS;
   double tHODO[MAXNTRACKS];
   double nHODO,trackindexHODO[MAXNTRACKS];
 
@@ -461,6 +461,7 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
   C->SetBranchStatus("sbs.hcal.y",1);
   C->SetBranchStatus("sbs.hcal.e",1);
   C->SetBranchStatus("sbs.hcal.tdctimeblk",1);
+  C->SetBranchStatus("sbs.hcal.atimeblk",1);
 
   C->SetBranchStatus("bb.hodotdc.nclus",1);
   C->SetBranchStatus("bb.hodotdc.clus.trackindex",1);
@@ -468,6 +469,7 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
 
   //BigBite track variables:
   C->SetBranchStatus("bb.gem.track.nhits",1);
+  C->SetBranchStatus("bb.gem.track.ngoodhits",1);
   C->SetBranchStatus("bb.tr.n",1);
   C->SetBranchStatus("bb.tr.px",1);
   C->SetBranchStatus("bb.tr.py",1);
@@ -495,6 +497,8 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
   C->SetBranchStatus("bb.sh.e",1);
   C->SetBranchStatus("bb.sh.x",1);
   C->SetBranchStatus("bb.sh.y",1);
+  C->SetBranchStatus("bb.sh.atimeblk",1);
+  C->SetBranchStatus("bb.ps.atimeblk",1);
 
   C->SetBranchAddress("bb.tr.n",&ntrack);
   C->SetBranchAddress("bb.gem.track.nhits",nhits);
@@ -522,6 +526,7 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
   C->SetBranchAddress("sbs.hcal.y",&yHCAL);
   C->SetBranchAddress("sbs.hcal.e",&EHCAL);
   C->SetBranchAddress("sbs.hcal.tdctimeblk",&THCAL);
+  C->SetBranchAddress("sbs.hcal.atimeblk",&THCAL_ADC);
 
   C->SetBranchAddress("bb.hodotdc.nclus",&nHODO);
   C->SetBranchAddress("bb.hodotdc.clus.trackindex",trackindexHODO);
@@ -532,6 +537,8 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
   C->SetBranchAddress("bb.ps.x",&xPS);
   C->SetBranchAddress("bb.sh.x",&xSH);
   C->SetBranchAddress("bb.sh.y",&ySH);
+  C->SetBranchAddress("bb.ps.atimeblk", &TPS);
+  C->SetBranchAddress("bb.sh.atimeblk", &TSH);
   
   int nparams = 0;
 
@@ -628,13 +635,14 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
   double T_pp_expect, T_ptheta_expect, T_pphi_expect;
   double T_EPS, T_ESH, T_Etot;
   double T_xSH, T_ySH;
+  double T_tSH, T_tPS;
   double T_Q2;
   double T_Q2_4vect, T_W2_4vect;
   double T_thetaq, T_phiq, T_px, T_py, T_pz, T_qx, T_qy, T_qz, T_qmag;
   double T_theta_recon_n, T_phi_recon_n, T_theta_recon_p, T_phi_recon_p; //Reconstructed nucleon angles under proton and neutron hypothesis
   double T_thetapq_n, T_phipq_n, T_thetapq_p, T_phipq_p;
   double T_dx_4vect, T_dy_4vect; //Here we want to use the 4-vector momentum transfer to calculate dx/dy
-  double T_hodotime, T_hcaltime;
+  double T_hodotime, T_hcaltime, T_hcaltime_adc;
   double T_Lneutron, T_nTOFexpect;
   
   int HCALcut;
@@ -708,6 +716,9 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
   Tout->Branch( "hcaltime", &T_hcaltime, "hcaltime/D");
   Tout->Branch( "Lneutron", &T_Lneutron, "Lneutron/D");
   Tout->Branch( "nTOFexpect", &T_nTOFexpect, "nTOFexpect/D");
+  Tout->Branch( "hcaltime_ADC", &T_hcaltime_adc, "hcaltime_ADC/D");
+  Tout->Branch( "tPS", &T_tPS, "tPS/D");
+  Tout->Branch( "tSH", &T_tSH, "tSH/D");
 
   long ntotal = C->GetEntries();
   
@@ -757,6 +768,10 @@ void MakeMomentumCalibrationTree( const char *configfilename, const char *output
       T_precon = precon;
       T_pelastic = pelastic; 
       T_pincident = pelastic - MeanEloss_outgoing;
+
+      T_tPS = TPS;
+      T_tSH = TSH;
+      T_hcaltime_adc = THCAL_ADC;
       
       double nu_recon = Ebeam_corrected - precon;
       

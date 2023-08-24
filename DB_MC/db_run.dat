@@ -1,39 +1,72 @@
 # Sample run database
-#--------[ 2017-07-26 17:50:14 ]
+--------[ 1995-07-26 17:50:14 ]
 
-# ebeam = 11.0
+ebeam = 11.0
 
-# sbs.theta = -30
-# sbs.pcentral = -1
-# sbs.phi = 0
-# sbs.colldist = 1.5
-# sbs.off_x = 0
-# sbs.off_y = 0
-# sbs.off_z = 0
+sbs.theta = -30
+sbs.pcentral = -1
+sbs.phi = 0
+sbs.colldist = 1.5
+sbs.off_x = 0
+sbs.off_y = 0
+sbs.off_z = 0
 
-# bb.theta    = 33.0  
-# bb.pcentral = 2.0 
-# bb.magdist = 1.85
+bb.theta    = 33.0  
+bb.pcentral = 2.0 
+bb.magdist = 1.85
 
-# Setting parameters for SBS-4
-# ebeam = 3.728
 
-# sbs.theta = 31.9
-# sbs.pcentral = 2.35
-# sbs.phi = 0
-# sbs.colldist = 1.5
-# sbs.off_x = 0
-# sbs.off_y = 0
-# sbs.off_z = 0
+--------[ 2021-10-18 16:00:00 ] ## Starting SBS-4 kinematics for GMN
 
-# bb.theta    = 36.0  
-# bb.pcentral = 2.11 
-# bb.magdist = 1.80
+ebeam = 3.7393 # from good run list
+sbs.theta = -31.9
+sbs.pcentral = 2.35
+sbs.phi = 0
+
+sbs.colldist = 1.5
+sbs.off_x = 0
+sbs.off_y = 0
+sbs.off_z = 0
+
+bb.theta    = 36.0  
+bb.pcentral = 2.11 
+# bb.magdist = 1.80 # nominal
+# bb.magdist = 1.7956 # from zero-field alignment
+bb.magdist = 1.7988 # from survey
 
 sbs.magdist = 2.25
 
-# Setting parameters for SBS-14
-ebeam = 5.9648
+
+--------[ 2021-11-12 00:00:00 ] ## Starting SBS-7 kinematics for GMN:
+
+ebeam = 7.9308  # from good run list
+
+sbs.pcentral = 6.2
+sbs.theta = -16.1
+sbs.magdist = 2.25
+
+bb.theta = 40.0 
+bb.pcentral = 2.67
+#bb.magdist = 1.85 # nominal
+bb.magdist = 1.84896 # from survey
+#bb.magdist = 1.86159 # from zero-field alignment
+
+--------[ 2021-11-23 00:00:00 ] ## starting SBS-11 kinematics for GMN
+
+ebeam = 9.889  # from good run list
+sbs.theta = -13.3 
+sbs.pcentral = 8.1
+sbs.magdist = 2.25
+
+bb.theta = 42.0
+#bb.magdist = 1.55 # meters, nominal
+bb.magdist = 1.55146 # meters, from survey
+#bb.magdist = 1.5649 # meters, from zero-field alignment
+bb.pcentral = 2.67
+
+--------[ 2022-01-06 12:00:00 ] ## starting SBS-14 kinematics for GMN
+
+ebeam = 5.9828  # from good run list
 sbs.theta = -17.3 # degrees
 sbs.pcentral = 4.8 # GeV
 sbs.magdist = 2.25
@@ -42,7 +75,61 @@ sbs.magdist = 2.25
 # note also: HCAL distance = 14.0 meters 
 
 bb.theta = 46.5 # degrees
-bb.magdist = 1.85 # meters, nominal:
+#bb.magdist = 1.85 # meters, nominal:
 #bb.magdist = 1.8784 # meters, from zero-field alignment
-#bb.magdist = 1.84787 # meters, from survey
+bb.magdist = 1.84787 # meters, from survey
 bb.pcentral = 2.0 # GeV
+
+--------[ 2022-01-21 12:00:00 ] ## starting SBS-8 kinematics:
+
+ebeam = 5.9826  # from good run list
+sbs.theta = -29.9
+sbs.pcentral = 3.22
+sbs.magdist = 2.25
+
+# note HCAL distance = 11 m
+
+bb.theta = 26.5
+#bb.magdist = 2.00 # meters, nominal
+bb.magdist = 1.97473 # meters, according to survey
+#bb.magdist = 1.9594 # meters, according to straight-through analysis
+bb.pcentral = 3.6 # GeV
+
+--------[ 2022-02-01 12:00:00 ] ## starting SBS-9 kinematics:
+
+# very, very preliminary settings:
+
+ebeam = 4.0268  # from good run list
+sbs.theta = -22.5
+sbs.pcentral = 3.22
+sbs.magdist = 2.25
+
+# note HCAL distance = 11 m
+
+bb.theta = 49.0
+#bb.magdist = 1.55: from survey or from nominal distance
+# new estimate for magnet distance based on zero-field alignment results for z sieve:
+# bb.magdist = 1.559
+bb.magdist = 1.550 # survey matches nominal, to within its precision
+bb.pcentral = 1.63
+
+
+###############################################################################
+###                               Starting GEn                              ###
+###############################################################################
+--------[ 2022-05-05 00:00:00 ] 
+
+# Settings for GEN2
+ebeam = 4.291
+
+sbs.theta = 34.7
+sbs.pcentral = 1.6
+# with tracking in SBS we will also need to add sbs magnet distance as a required parameter
+sbs.magdist = 2.80 
+# sbs.hcaldist = 17.0 
+
+bb.theta = 29.5
+bb.pcentral = 2.66
+
+# to be refined from survey results later
+bb.magdist = 1.63
