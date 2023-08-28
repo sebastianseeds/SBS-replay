@@ -1,10 +1,17 @@
 #/Users/puckett/GMN_ROOTFILES/SBS4/e1209019_fullreplay_11500*.root
-/Users/puckett/GMN_ROOTFILES/PASS1_QA/SBS4/rootfiles/e1209019_fullreplay_11547*.root
-/Users/puckett/GMN_ROOTFILES/PASS1_QA/SBS4/rootfiles/e1209019_fullreplay_11548*.root
+#/Users/puckett/GMN_ROOTFILES/PASS1_QA/SBS4/rootfiles/e1209019_fullreplay_11547*.root
+#/Users/puckett/GMN_ROOTFILES/PASS1_QA/SBS4/rootfiles/e1209019_fullreplay_11548*.root
 #/Users/puckett/GMN_ROOTFILES/SBS4/e1209019_fullreplay_11590*.root
 #/Users/puckett/GMN_ROOTFILES/SBS4/e1209019_fullreplay_11573*.root
+/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs4_v2_job_1.root
+/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs4_v2_job_2.root
+/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs4_v2_job_3.root
+/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs4_v2_job_4.root
+/lustre19/expphy/volatile/halla/sbs/seeds/simulation/gmn_sbs4_v2_job_5.root
+#/lustre19/expphy/volatile/halla/sbs/seeds/simulation/replayed_gmn_sbs4_v2_job_1.root
+#/work/halla/sbs/sbs-gmn/pass0/SBS4/LH2/rootfiles/e1209019_fullreplay_11547_stream0_seg*
 endlist
-bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&bb.gem.track.nhits>3&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
+#bb.tr.n==1&&bb.ps.e>0.2&&abs(bb.tr.vz)<.08&&bb.gem.track.nhits>3&&abs(bb.etot_over_p-0.92)<0.2&&bb.ps.e+bb.sh.e>1.7
 endcut
 order 1
 useAlShield 0

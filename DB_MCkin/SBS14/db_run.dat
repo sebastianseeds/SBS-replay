@@ -1,0 +1,10 @@
+## starting SBS-14 kinematics for GMN:
+
+ebeam = 5.9648
+sbs.theta = -17.3 # degrees
+sbs.pcentral = 4.8 # GeV
+sbs.magdist = 2.25
+
+bb.theta = 46.5 # degrees
+bb.magdist = 1.85 # meters, nominal
+bb.pcentral = 2.0 # GeV

@@ -1,0 +1,14 @@
+#grinch test odef file for replay 040523
+
+block bb.grinch_tdc.*
+block bb.grinch_adc.*
+block bb.tr.*
+variable bb.hodotdc.clus.tmean
+block sbs.hcal.clus_blk.*
+variable bb.sh.e
+variable bb.ps.e
+block e.kine.*
+variable bb.sh.x
+variable bb.ps.x
+variable bb.sh.y
+viriable bb.ps.y

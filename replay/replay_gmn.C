@@ -338,8 +338,10 @@ void replay_gmn(UInt_t runnum=10491, Long_t nevents=-1, Long_t firstevent=0, con
   odef_filename.Prepend(prefix);
   //odef_filename.Prepend("/work/halla/sbs/ewertz/SBS-replay/replay/");
 
-  analyzer->SetOdefFile( odef_filename );
+  //analyzer->SetOdefFile( odef_filename );
   
+  analyzer->SetOdefFile( "/work/halla/sbs/seeds/SBS-replay/replay/replay_grtest.odef" );
+
   //added cut list in order to have 
   TString cdef_filename = "replay_gmn_farm.cdef";
   

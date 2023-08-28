@@ -1,0 +1,10 @@
+## starting SBS-9 kinematics:
+
+ebeam = 4.015 # to be refined later
+sbs.theta = 22.5
+sbs.pcentral = 3.22
+sbs.magdist = 2.25
+
+bb.theta = 49.0
+bb.magdist = 1.550 # survey matches nominal, to within its precision
+bb.pcentral = 1.63

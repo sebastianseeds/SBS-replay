@@ -1,0 +1,10 @@
+## starting SBS-11 kinematics for GMN
+
+ebeam = 9.859 
+sbs.theta = -13.3 
+sbs.pcentral = 8.1
+sbs.magdist = 2.25
+
+bb.theta = 42.0
+bb.magdist = 1.55146 # meters, from survey
+bb.pcentral = 2.67

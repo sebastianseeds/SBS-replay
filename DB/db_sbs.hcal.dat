@@ -158,6 +158,12 @@ sbs.hcal.xpos =
 0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  0.916875  
 1.075625  1.075625  1.075625  1.075625  1.075625  1.075625  1.075625  1.075625  1.075625  1.075625  1.075625  1.075625
 
+## TOF vs proton momentum pol4 fit correction to time
+sbs.hcal.tofcorr_p = 1 0 0 0
+
+## TOF vs neutron momentum pol4 fit correction to time
+sbs.hcal.tofcorr_n = 0 0 0 0
+
 ## Mininum energy for a cluster element, set to 5 MeV
 sbs.hcal.emin = 0.005
 
@@ -280,6 +286,8 @@ sbs.hcal.emin_clSeed = 0.005
 #sbs.hcal.emin_clSeed = 0.01
 sbs.hcal.emin_clSeed = 0.005
 sbs.hcal.emin = 0.005
+sbs.hcal.tdc.tw = 6.3895 13.0121
+sbs.hcal.tmax = 21.2339
 
 # First Change in HV for HCAL, calibrated from SBS-8 data after change during SBS-4
 # Pass 2 replacement, 9.23
