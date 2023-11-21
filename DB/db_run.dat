@@ -37,6 +37,7 @@ ebeam = 1.916
 sbs.theta = -33.5
 sbs.pcentral = 1.5
 sbs.magdist = 2.25
+sbs.hcaldist = 13.5
 
 # BB on beam left:
 bb.theta = 51.0
@@ -56,6 +57,7 @@ ebeam = 3.7393
 sbs.theta = -31.9
 sbs.pcentral = 2.373 # elastic proton momentum
 sbs.magdist = 2.25
+sbs.hcaldist = 11.0
 
 # pcentral chosen for elastic
 # note BB field production setting is 750 A most of the time
@@ -72,6 +74,7 @@ ebeam = 7.38 # to be adjusted when we find out what the actual beam energy is ac
 sbs.theta = -24.7
 sbs.pcentral = 4.31
 sbs.magdist = 2.25
+sbs.hcaldist = 11.0 # NOTE: this number is a placeholder. We never actually got any data here
 
 # pcentral chosen for elastic:
 
@@ -89,6 +92,7 @@ ebeam = 7.9308
 sbs.pcentral = 6.2
 sbs.theta = -16.1
 sbs.magdist = 2.25
+sbs.hcaldist = 14.0
 
 bb.theta = 40.0 
 bb.pcentral = 2.67
@@ -103,6 +107,7 @@ ebeam = 9.889
 sbs.theta = -13.3 
 sbs.pcentral = 8.1
 sbs.magdist = 2.25
+sbs.hcaldist = 14.5
 
 bb.theta = 42.0
 #bb.magdist = 1.55 # meters, nominal
@@ -117,6 +122,7 @@ ebeam = 5.9828
 sbs.theta = -17.3 # degrees
 sbs.pcentral = 4.8 # GeV
 sbs.magdist = 2.25
+sbs.hcaldist = 14.0
 
 # note: SBS distance = 2.25 m
 # note also: HCAL distance = 14.0 meters 
@@ -134,6 +140,7 @@ ebeam = 5.9826
 sbs.theta = -29.9
 sbs.pcentral = 3.22
 sbs.magdist = 2.25
+sbs.hcaldist = 11.0
 
 # note HCAL distance = 11 m
 
@@ -152,6 +159,7 @@ ebeam = 4.0268
 sbs.theta = -22.5
 sbs.pcentral = 3.22
 sbs.magdist = 2.25
+sbs.hcaldist = 11.0
 
 # note HCAL distance = 11 m
 
@@ -173,7 +181,7 @@ sbs.theta = -34.7
 sbs.pcentral = 1.6
 # with tracking in SBS we will also need to add sbs magnet distance as a required parameter
 sbs.magdist = 2.80 
-# sbs.hcaldist = 17.0 
+sbs.hcaldist = 17.0 
 
 bb.theta = 47.5
 bb.pcentral = 1.22
@@ -191,7 +199,7 @@ sbs.theta = -34.7
 sbs.pcentral = 1.6
 # with tracking in SBS we will also need to add sbs magnet distance as a required parameter
 sbs.magdist = 2.80 
-# sbs.hcaldist = 17.0 
+sbs.hcaldist = 17.0 
 
 bb.theta = 29.5
 bb.pcentral = 2.66
@@ -210,7 +218,7 @@ sbs.theta = -22.1
 sbs.pcentral = 3.6
 # with tracking in SBS we will also need to add sbs magnet distance as a required parameter
 sbs.magdist = 2.80 
-# sbs.hcaldist = 17.0 
+sbs.hcaldist = 17.0 
 
 bb.theta = 36.5
 bb.pcentral = 2.78
@@ -226,6 +234,7 @@ ebeam = 8.451
 sbs.theta = -18.0
 sbs.pcentral = 6.1
 sbs.magdist = 2.80
+sbs.hcaldist = 17.0
 
 bb.theta = 35.0
 bb.pcentral = 3.21

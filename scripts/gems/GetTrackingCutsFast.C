@@ -103,6 +103,8 @@ void GetTrackingCutsFast( const char *configfilename, const char *outfilename="G
   C->SetBranchAddress("bb.ps.e",&EPS);
   C->SetBranchAddress("bb.sh.e",&ESH);
 
+  C->SetBranchStatus("bb.grinch_tdc.clus.*",1);
+
   double ntracks;
   double tracknhits[MAXNTRACKS];
   double trackngoodhits[MAXNTRACKS];
@@ -346,6 +348,8 @@ void GetTrackingCutsFast( const char *configfilename, const char *outfilename="G
 
   TH2D *htavg_corr_vs_ttrig_allhits = new TH2D("hTavg_corr_vs_ttrig_allhits", "All hits; t_{trig} (ns); t_{GEM} (ns)", 300, 200, 500, 300,-75,75);
 
+  TH1D *htrackt0 = new TH1D("htrackt0", ";track t_{0} (ns);", 250,-25,25);
+  
   // For the GEM time versus trigger time correlation, we want a TClonesArray(TH2D):
   TClonesArray *htavg_corr_vs_ttrig_by_module = new TClonesArray("TH2D",nmodules);
  
@@ -411,6 +415,8 @@ void GetTrackingCutsFast( const char *configfilename, const char *outfilename="G
        	
 	hdthcp->Fill( thfp[0]-thcp );
 	hdphcp->Fill( phfp[0]-phcp );
+
+	htrackt0->Fill( trackt0[0] );
       }
       
       for( int ihit=0; ihit<int(ngoodhits); ihit++ ){
@@ -1046,6 +1052,16 @@ void GetTrackingCutsFast( const char *configfilename, const char *outfilename="G
     
   }
 
+  FitGaus_FWHM( htrackt0, 0.25 );
+
+  TF1 *fitfunc = (TF1*) (htrackt0->GetListOfFunctions()->FindObject("gaus"));
+
+  double sigma = fitfunc->GetParameter("Sigma");
+
+  TString dbline;
+  dbfile_tcuts << endl << dbline.Format("bb.gem.sigmatrackt0 = %12.5g", sigma ) << endl << endl;
+  
+  
   //Tracking constraints:
   dbfile << "bb.frontconstraint_x0 = " << hdxfcp->GetMean() << endl;
   dbfile << "bb.frontconstraint_y0 = " << hdyfcp->GetMean() << endl;

@@ -236,7 +236,8 @@ bb.sh.emin_clTotal = 0.02 # GeV
 
 bb.sh.Rmax_dis = 0.15 #m, Search radius for cluster 
 
-## Maximum time difference between cluster seed and additional clusters, set to 1000 ns
+## Maximum time difference between cluster seed and additional blocks, set to 1000 ns
+# keep at 50 ns until we better understand the effects:
 bb.sh.tmax = 10.0
 
 #ADCtime offsets w.r.t bbhodo

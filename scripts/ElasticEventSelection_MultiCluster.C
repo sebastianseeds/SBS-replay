@@ -480,6 +480,11 @@ void ElasticEventSelection_MultiCluster( const char *configfilename, const char 
 
   int nhodoclust; //number of TRACK-MATCHED hodo clusters:
 
+  int MAXGRINCHCLUSTERS=100;
+  
+  double nclustGRINCH;
+  double GRINCH_trackindex, GRINCH_clustersize, GRINCH_tmean, GRINCH_xmean, GRINCH_ymean, GRINCH_adc, GRINCH_totmean;
+
   //Ignore hodo variables for meow:
   // int maxHODOclusters=100;
 
@@ -491,10 +496,26 @@ void ElasticEventSelection_MultiCluster( const char *configfilename, const char 
   C->SetBranchStatus("*",0);
 
   //Hope this works: in pass 2 we will replace with g.runnum
-  C->SetBranchStatus("fEvtHdr.fRun",1);
-  UInt_t runnumber;
-  C->SetBranchAddress("fEvtHdr.fRun",&runnumber);
+  //C->SetBranchStatus("fEvtHdr.fRun",1);
+  //UInt_t runnumber;
+  //C->SetBranchAddress("fEvtHdr.fRun",&runnumber);
   
+  C->SetBranchStatus("g.runnum",1);
+  double runnumber;
+  C->SetBranchAddress("g.runnum", &runnumber);
+
+  C->SetBranchStatus("bb.grinch_tdc.nclus",1);
+  C->SetBranchStatus("bb.grinch_tdc.clus.*",1);
+  
+  C->SetBranchAddress("bb.grinch_tdc.nclus",&nclustGRINCH);
+  C->SetBranchAddress("bb.grinch_tdc.clus.size", &GRINCH_clustersize);
+  C->SetBranchAddress("bb.grinch_tdc.clus.t_mean", &GRINCH_tmean);
+  C->SetBranchAddress("bb.grinch_tdc.clus.trackindex", &GRINCH_trackindex);
+  C->SetBranchAddress("bb.grinch_tdc.clus.x_mean", &GRINCH_xmean);
+  C->SetBranchAddress("bb.grinch_tdc.clus.y_mean", &GRINCH_ymean);
+  C->SetBranchAddress("bb.grinch_tdc.clus.adc", &GRINCH_adc);
+  C->SetBranchAddress("bb.grinch_tdc.clus.tot_mean", &GRINCH_totmean);
+
   //Minimal set of HCAL variables:
   C->SetBranchStatus("sbs.hcal.x",1);
   C->SetBranchStatus("sbs.hcal.y",1);
@@ -708,6 +729,13 @@ void ElasticEventSelection_MultiCluster( const char *configfilename, const char 
   double T_dt;
   double T_dta;
   double T_protondeflect;
+  int T_grinch_tridx;
+  int T_grinch_clustersize;
+  double T_grinch_tmean;
+  double T_grinch_xmean;
+  double T_grinch_ymean;
+  double T_grinch_adc;
+  
   int bestHCALcluster;
   int HCALcut;
   int BBcut;
@@ -806,6 +834,14 @@ void ElasticEventSelection_MultiCluster( const char *configfilename, const char 
   Tout->Branch( "xblkHCAL", xblkHCAL, "xblkHCAL[nblkHCAL]/D" );
   Tout->Branch( "yblkHCAL", yblkHCAL, "yblkHCAL[nblkHCAL]/D" );
   
+  Tout->Branch( "grinch_clsize", &T_grinch_clustersize, "grinch_clsize/I");
+  Tout->Branch( "grinch_tridx", &T_grinch_tridx, "grinch_tridx/I");
+  Tout->Branch( "grinch_tmean", &T_grinch_tmean, "grinch_tmean/D");
+  Tout->Branch( "grinch_xmean", &T_grinch_xmean, "grinch_xmean/D");
+  Tout->Branch( "grinch_ymean", &T_grinch_ymean, "grinch_ymean/D");
+  Tout->Branch( "grinch_adc", &T_grinch_adc, "grinch_adc/D");
+
+  
   Long64_t NTOT = C->GetEntriesFast();
 
   //First pass: accumulate sums required for the fit: 
@@ -839,12 +875,16 @@ void ElasticEventSelection_MultiCluster( const char *configfilename, const char 
 
       TString srunnum( fname( start, 5 ) );
 
-      cout << "new file name = \"" << fname << "\", run number extracted from file name = \"" << srunnum << "\"" << endl;
-      T_runnum = srunnum.Atoi();
-      
+      // cout << "new file name = \"" << fname << "\", run number extracted from file name = \"" << srunnum << "\"" 
+      // 	   << ", runnumber from g.runnum = " << int(runnumber) << endl;
+      //T_runnum = srunnum.Atoi();
+      //T_runnum = runnumber;
+
       treenum = currenttreenum;
       GlobalCut->UpdateFormulaLeaves();
     }
+
+    T_runnum = runnumber;
 
     ievent++;
     
@@ -1228,7 +1268,14 @@ void ElasticEventSelection_MultiCluster( const char *configfilename, const char 
 	  
 	}
       }
-      
+    
+      T_grinch_tridx = int( GRINCH_trackindex );
+      T_grinch_clustersize = int( GRINCH_clustersize );
+      T_grinch_tmean = GRINCH_tmean;
+      T_grinch_xmean = GRINCH_xmean;
+      T_grinch_ymean = GRINCH_ymean;
+      T_grinch_adc = GRINCH_adc;
+  
       //if( ibest_HCAL >= 0 ) Tout->Fill();
       Tout->Fill();
     }

@@ -29,12 +29,11 @@
 TDatime get_datime(uint genconfig)
 /* Returns TDatime for a given GEn configuration */
 {
-  std::unordered_map<uint,TDatime> m = {{1, "2023-05-12 09:00:00"},
-					{2, "2023-05-12 09:00:00"},
-					{3, "2023-05-12 09:00:00"},
-					{4, "2023-05-12 09:00:00"}};
+  std::unordered_map<uint,TDatime> m = {{2, "2022-10-06 00:00:00"},
+					{3, "2022-11-15 00:00:00"},
+					{4, "2023-01-10 00:00:00"}};
   if (m.find(genconfig)==m.end()) 
-    throw std::invalid_argument("Invalid SBS config!! Valid options are: 1,2,3,4");
+    throw std::invalid_argument("Invalid SBS config!! Valid options are: 2,3,4");
   return m[genconfig];
 }
 

@@ -7,6 +7,21 @@
 
 TH1D *hW2elastic;
 
+void FitGaus_FWHM( TH1D *htest, double thresh=0.5 ){
+  int binmax = htest->GetMaximumBin();
+  int binlow = binmax, binhigh = binmax;
+
+  double max = htest->GetBinContent(binmax);
+
+  while( htest->GetBinContent(binlow) >= thresh*max && binlow > 1 ){binlow--;}
+  while( htest->GetBinContent(binhigh) >= thresh*max && binhigh < htest->GetNbinsX() ){ binhigh++; }
+
+  double xlow = htest->GetBinLowEdge(binlow);
+  double xhigh = htest->GetBinLowEdge(binhigh+1);
+
+  htest->Fit("gaus","q0S","",xlow, xhigh);
+}
+
 double fitfunc( double *x, double *par ){
   double W2 = x[0];
 
@@ -21,6 +36,27 @@ double fitfunc( double *x, double *par ){
 
   return signal + bg; 
   
+}
+
+//For the dx efficiency method, fit a Gaussian 
+double fitfunc_dx( double *x, double *par ){
+  double dx = x[0];
+
+  //Fit 4th-order polynomial to sidebands to get background:
+
+  //These should ordinarily be fixed:
+  double dxpeak = par[0];
+  double dxsigma = par[1];
+
+  if( fabs( dx - dxpeak ) < 5.0*dxsigma ) TF1::RejectPoint();
+  
+  double poly = 0.0;
+  for( int i=0; i<5; i++ ){
+    poly += par[i+2]*pow(dx,i);
+  }
+
+  return poly;
+
 }
 
 void Fit_W2_inclusive( TH1D *hW2all, TH1D *hW2elastic_temp, int order_bg=4, double W2min=-1.0, double W2max=2.0 ){
@@ -98,12 +134,26 @@ void GetElasticCounts( const char *rootfilename, double W2min=0.4, double W2max 
   TH1D *hW2_HCALcut = new TH1D("hW2_HCALcut", ";W^{2} (GeV^{2});", 100, -1.0, 3.0 );
   TH1D *hW2_anticut = new TH1D("hW2_anticut", ";W^{2} (GeV^{2});", 100, -1.0, 3.0 );
 
+  TH1D *hdx_Wcut = new TH1D("hdx_Wcut", ";#Deltax (m);", 300,-2,1);
+
+  
   C->Project("hW2_nocut", "W2", fiducialcut);
   C->Project("hW2_HCALcut", "W2", cut&&fiducialcut);
   C->Project("hW2_anticut", "W2", !cut&&fiducialcut);
+ 
+  TString cutstring; 
+
+  cutstring.Form("%g<W2&&W2<%g",W2min,W2max);
+
+  TCut Wcut = cutstring.Data();
+
+  Wcut.Print();
+
+  //Add loose deltay cut:
+  C->Project("hdx_Wcut", "deltax",Wcut&&fiducialcut); 
 
   TCanvas *c1 = new TCanvas("c1","c1",1200,750);
-  c1->Divide(2,1,.001,.001);
+  c1->Divide(3,1,.001,.001);
 
   c1->cd(1);
   
@@ -125,8 +175,47 @@ void GetElasticCounts( const char *rootfilename, double W2min=0.4, double W2max 
 
   cout << "Elastic yield (passed fiducial cut, failed HCAL cut) = " << CountsAcut << " +/- " << dCountsAcut << endl;
 
+  //Total inclusive counts  
+
   double efficiency = 1.-CountsAcut/Counts;
   double defficiency = sqrt(efficiency*(1.-efficiency)/Counts);
   
   cout << "HCAL effective proton efficiency = " << efficiency << " +/- " << defficiency << endl;
+
+  c1->cd(3);
+  hdx_Wcut->Draw();
+
+  FitGaus_FWHM( hdx_Wcut, 0.3 );
+  
+  double dxmean = ( (TF1*) hdx_Wcut->GetListOfFunctions()->FindObject("gaus") )->GetParameter("Mean");
+  double dxsigma = ( (TF1*) hdx_Wcut->GetListOfFunctions()->FindObject("gaus") )->GetParameter("Sigma");
+
+  TF1 *func_dxsideband = new TF1("func_dxsideband", fitfunc_dx, -2, 1, 7 );
+  func_dxsideband->FixParameter(0,dxmean);
+  func_dxsideband->FixParameter(1,dxsigma);
+
+  for( int ipar=2; ipar<7; ipar++ ){
+    func_dxsideband->SetParameter(ipar,0.0);
+  }
+  
+  hdx_Wcut->Fit(func_dxsideband,"S","",-2,1);
+
+  double bg, dbg;
+
+  bg = func_dxsideband->Integral(-2,1) / hdx_Wcut->GetBinWidth(1);
+  dbg = func_dxsideband->IntegralError(-2,1) / hdx_Wcut->GetBinWidth(1);
+
+  double tot,dtot;
+  //tot = hdx_Wcut->IntegralAndError(1,hdx_Wcut->GetNbinsX(),dtot);
+  double elastic = hdx_Wcut->IntegralAndError(1,hdx_Wcut->GetNbinsX(),dtot) - bg;
+
+  //VERY rough error = 
+  double delastic = sqrt(dtot*dtot+dbg*dbg);
+
+  double eff_dxside = elastic/Counts;
+  double deff_dxside = sqrt(eff_dxside*(1.-eff_dxside)/Counts);
+  
+  cout << "Elastic counts from dx sideband fit = " << elastic << " +/- " << delastic << ", background = " 
+       << bg << " +/- " << dbg << ", naive efficiency = " << elastic/Counts 
+       << " +/- " << deff_dxside << endl;
 }

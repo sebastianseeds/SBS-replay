@@ -115,14 +115,14 @@ bb.pcentral = 1.63
 
 
 ###############################################################################
-###                               Starting GEn                              ###
+###                               GEN-2                                     ###
 ###############################################################################
 --------[ 2022-10-05 00:00:00 ] 
 
 # Settings for GEN2
 ebeam = 4.291
 
-sbs.theta = 34.7
+sbs.theta = -34.7
 sbs.pcentral = 1.6
 # with tracking in SBS we will also need to add sbs magnet distance as a required parameter
 sbs.magdist = 2.80 
@@ -132,4 +132,41 @@ bb.theta = 29.5
 bb.pcentral = 2.66
 
 # to be refined from survey results later
+bb.magdist = 1.63
+
+
+###############################################################################
+###                               GEN-3                                     ###
+###############################################################################
+--------[ 2022-11-08 00:00:00 ] 
+
+ebeam = 6.373
+
+sbs.theta = -22.1
+# this parameter appears to be the KE from above, not the momentum. p_p = 4.435 GeV/c
+sbs.pcentral = 3.6
+# with tracking in SBS we will also need to add sbs magnet distance as a required parameter
+sbs.magdist = 2.80 
+# sbs.hcaldist = 17.0 
+
+bb.theta = 36.5
+bb.pcentral = 2.78
+
+# to be refined from survey results later
+bb.magdist = 1.63
+
+
+###############################################################################
+###                               GEN-4                                     ###
+###############################################################################
+--------[ 2023-01-01 00:00:00 ] 
+
+ebeam = 8.451
+
+sbs.theta = -18.0
+sbs.pcentral = 6.1
+sbs.magdist = 2.80
+
+bb.theta = 35.0
+bb.pcentral = 3.21
 bb.magdist = 1.63

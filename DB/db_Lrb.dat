@@ -16,7 +16,7 @@ Raster2_curr_x_range = 35250 52650 #Downstream Raster min and max value
 Raster2_curr_y_range = 34650 50700
 
 
-------[ 2022-09-01 00:00:00 ] Beginning of experiment GEN-1
+------[ 2022-09-01 00:00:00 ] #Beginning of experiment GEN-1
 	
 # BPM settings, used for track vertex
 BPM_separation = 5.15 
@@ -33,37 +33,76 @@ Raster_curr_y_range = 29607 57139
 Raster2_curr_x_range = 35250 52650 #Downstream Raster min and max value
 Raster2_curr_y_range = 34650 50700
 
-------[ 2022-10-10 00:00:00 ] Optics for GEN-2 - No Raster
+------[ 2022-10-10 00:00:00 ] #Optics for GEN-2 - No Raster
 
 Raster_type = 0
 
-------[ 2022-10-12 00:00:00 ] H2 for GEN-1 - With Raster
+------[ 2022-10-12 00:00:00 ] #H2 for GEN-1 - With Raster
 
 Raster_type = 1
 
 Raster_curr_x_range = 39006 49254 
 Raster_curr_y_range = 38580 48280
 
-------[ 2022-10-17 00:00:00 ] GEN-2 Produciton - With Raster
+------[ 2022-10-17 00:00:00 ] #GEN-2 H2 and He3 - all same raster
+
+Raster_curr_x_range = 34700 53600
+Raster_curr_y_range = 34600 52200
+
+
+------[ 2022-11-11 00:00:00 ] #GEN-3 H2, He3, and optics - same raster
 
 Raster_type = 1
 
-Raster_curr_x_range = 34720 53590 
-Raster_curr_y_range = 34705 52085
+Raster_curr_x_range = 29200 59200
+Raster_curr_y_range = 29800 57200
 
-------[ 2022-11-11 00:00:00 ] GEN-3 Produciton
+------[ 2022-12-01 08:40:00 ] # Run 2959 raster slightly changes
 
-Raster_type = 1
+Raster_curr_x_range = 32000 56300
+Raster_curr_y_range = 32000 55000
 
-Raster_curr_x_range = 29106 59225
-Raster_curr_y_range = 29607 57139
-
-------[ 2023-01-14 00:00:00 ] GEN-4 Produciton
+------[ 2023-01-14 00:00:00 ] #GEN-4 Produciton
 
 Raster_type = 2
 
-Raster_curr_x_range = 34000 54350
-Raster_curr_y_range = 35250 51650
+Raster_curr_x_range = 27800 60500
+Raster_curr_y_range = 27500 59300
 
-Raster2_curr_x_range = 35250 52650
-Raster2_curr_y_range = 34650 50700
+Raster2_curr_x_range = 43160 44680
+Raster2_curr_y_range = 42530 42870
+
+------[ 2023-01-16 20:00:00 ] # Run 3552 raster slightly changes
+
+Raster_curr_x_range = 25500 63300
+Raster_curr_y_range = 27500 59000
+
+Raster2_curr_x_range = 43080 44760
+Raster2_curr_y_range = 42500 42880
+
+------[ 2023-01-20 03:00:00 ] # Run 3671 raster slightly changes
+
+Raster_curr_x_range = 34000 54400
+Raster_curr_y_range = 35800 51000
+
+Raster2_curr_x_range = 35400 52400
+Raster2_curr_y_range = 34800 50600
+
+
+-------[ 2023-09-01 00:00:00 ] # GEN-4b start
+
+Raster_type = 2 # Upstream and downstream rasters on
+
+Raster_curr_x_range = 35500 52700
+Raster_curr_y_range = 36100 50700
+
+Raster2_curr_x_range = 35800 52000
+Raster2_curr_y_range = 35300 49900
+
+-------[ 2023-09-01 00:00:00 ] # GEN4b Optics runs
+
+Raster_curr_x_range = 34300 53800
+Raster_curr_y_range = 35400 51400
+
+Raster2_curr_x_range = 35100 52700
+Raster2_curr_y_range = 34600 50800
